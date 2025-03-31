@@ -41,9 +41,12 @@ $m_{t+1} = \beta_1 m_t + (1-\beta_1)\nabla J(\theta_t)$
 
 $v_{t+1} = \beta_2 v_t + (1-\beta_2)(\nabla J(\theta_t))^2$
 
-$\hat{m}_{t+1} = \frac{m_{t+1}}{1-\beta_1^{t+1}}\quad,\quad \hat{v}_{t+1} = \frac{v_{t+1}}{1-\beta_2^{t+1}}$
+$m̂_{t+1}=\frac{m_{t+1}}{1-\beta _1^{t+1}}$
 
-$\theta_{t+1} = \theta_t - \frac{\eta \hat{m}_{t+1}}{\sqrt{\hat{v}_{t+1}} + \epsilon}$
+$v̂_{t+1} = \frac{v_{t+1}}{1-\beta_2^{t+1}}$
+
+$\theta_{t+1} = \theta_t - \frac{\eta m̂_{t+1}}{\sqrt{v̂_{t+1}} + \epsilon}$
+
 
 Adam intuitively balances aggressive learning steps with controlled parameter updates, making it highly effective for training neural networks across a wide range of problems.
 
@@ -59,11 +62,11 @@ Adagrad intuitively allows parameters associated with infrequent features to rec
 ## 🔥 Adadelta
 Adadelta improves Adagrad by reducing its monotonically decreasing learning rates, using an adaptive mechanism for parameter updates:
 
-$E[g^2]_t = \rho E[g^2]_{t-1} + (1-\rho)(\nabla J(\theta_t))^2$
+$`E[g^{2}]_{t} = \rho E[g^{2}]_{t-1} + (1-\rho)(\nabla J(\theta_t))^{2}`$
 
 $\Delta \theta_t = -\frac{\sqrt{E[\Delta \theta^2]_{t-1} + \epsilon}}{\sqrt{E[g^2]_t + \epsilon}}\nabla J(\theta_t)$
 
-$E[\Delta \theta^2]_t = \rho E[\Delta \theta^2]_{t-1} + (1-\rho)(\Delta \theta_t)^2$
+$`E[\Delta \theta^{2}]_{t} = \rho E[\Delta \theta^{2}]_{t-1}+ (1-\rho)(\Delta \theta_t)^{2}`$
 
 Intuitively, Adadelta maintains a balanced learning pace, overcoming stagnation issues of Adagrad without requiring a fixed learning rate.
 
