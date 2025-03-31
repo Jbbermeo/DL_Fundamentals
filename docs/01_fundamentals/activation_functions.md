@@ -58,7 +58,14 @@ ReLU is widely favored for its simplicity and efficiency—it simply zeroes nega
 
 The mathematical representation is:
 
-$f(x) = \begin{cases} x & \text{if } x > 0 \\ \alpha x & \text{otherwise} \end{cases} \quad \text{where } \alpha \text{ is typically small (e.g., 0.01)}$
+$$
+f(x) =
+\begin{cases}
+x & \text{if } x > 0 \\
+\alpha x & \text{otherwise}
+\end{cases}
+\quad \text{where } \alpha \text{ is typically small (e.g., 0.01)}
+$$
 
 ![LReLU](https://pytorch.org/docs/stable/_images/LeakyReLU.png)
 
@@ -70,7 +77,14 @@ Leaky ReLU gently modifies the standard ReLU to mitigate dead neurons by introdu
 
 Mathematically described by:
 
-$f(x) = \begin{cases} x & \text{if } x > 0 \\ \alpha(e^{x}-1) & \text{otherwise} \end{cases} \quad \text{with } \alpha \approx 1$
+$$
+f(x) =
+\begin{cases}
+x & \text{if } x > 0 \\
+\alpha (e^x - 1) & \text{otherwise}
+\end{cases}
+\quad \text{where } \alpha \approx 1
+$$
 
 ![ELU](https://pytorch.org/docs/stable/_images/ELU.png)
 
