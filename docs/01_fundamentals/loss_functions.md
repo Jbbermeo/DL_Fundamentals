@@ -59,13 +59,13 @@ This ensures predictions are confident and clearly separated by a margin, pushin
 
 Huber Loss smoothly transitions between MSE and MAE, combining robustness to outliers and differentiability:
 
-
-$L_{\delta}(y,\hat{y})=
-\begin{cases} 
-\frac{1}{2}(y - \hat{y})^2 & \text{if } |y - \hat{y}| \leq \delta \\
-\delta|y - \hat{y}| - \frac{1}{2}\delta^2 & \text{otherwise}
-\end{cases}$
-
+$$
+\mathcal{L}_{\delta}(y,\hat{y}) =
+\begin{cases}
+\frac{1}{2}(y - \hat{y})^2 & \text{if } |y - \hat{y}| < \delta \\
+\delta (|y - \hat{y}| - \frac{1}{2}\delta) & \text{otherwise}
+\end{cases}
+$$
 
 Think of Huber Loss as balancing sensitivity and robustness, minimizing the outsized influence of outliers while retaining smoothness for optimization.
 
