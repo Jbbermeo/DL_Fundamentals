@@ -147,75 +147,75 @@ Let's illustrate backpropagation with a simple neural network consisting of:
 
 Suppose we have one training example:
 
-$X = \begin{bmatrix} 0.5 \\ 0.2 \end{bmatrix}, \quad Y = 1$
+$`X = \begin{bmatrix} 0.5 \\ 0.2 \end{bmatrix}, \quad Y = 1`$
 
 Initial weights and biases (chosen arbitrarily):
 
 - **Hidden Layer:**
 
-$W^{(1)} = \begin{bmatrix} 0.1 & 0.4 \\ 0.8 & 0.6 \end{bmatrix}, \quad b^{(1)} = \begin{bmatrix} 0.3 \\ 0.9 \end{bmatrix}$
+$`W^{(1)} = \begin{bmatrix} 0.1 & 0.4 \\ 0.8 & 0.6 \end{bmatrix}, \quad b^{(1)} = \begin{bmatrix} 0.3 \\ 0.9 \end{bmatrix}`$
 
 - **Output Layer:**
 
-$W^{(2)} = \begin{bmatrix} 0.3 & 0.7 \end{bmatrix}, \quad b^{(2)} = 0.5$
+$`W^{(2)} = \begin{bmatrix} 0.3 & 0.7 \end{bmatrix}, \quad b^{(2)} = 0.5`$
 
 ### 🟢 **Forward Pass**
 
 **Hidden Layer Computation:**
 
-$Z^{(1)} = W^{(1)} X + b^{(1)} = \begin{bmatrix} 0.1 & 0.4 \\ 0.8 & 0.6 \end{bmatrix}\begin{bmatrix} 0.5 \\ 0.2 \end{bmatrix} + \begin{bmatrix} 0.3 \\ 0.9 \end{bmatrix} = \begin{bmatrix} 0.43 \\ 1.42 \end{bmatrix}$
+$`Z^{(1)} = W^{(1)} X + b^{(1)} = \begin{bmatrix} 0.1 & 0.4 \\ 0.8 & 0.6 \end{bmatrix}\begin{bmatrix} 0.5 \\ 0.2 \end{bmatrix} + \begin{bmatrix} 0.3 \\ 0.9 \end{bmatrix} = \begin{bmatrix} 0.43 \\ 1.42 \end{bmatrix}`$
 
 Apply sigmoid activation:
 
-$A^{(1)} = \sigma(Z^{(1)}) = \begin{bmatrix} \sigma(0.43) \\ \sigma(1.42) \end{bmatrix} \approx \begin{bmatrix} 0.606 \\ 0.805 \end{bmatrix}$
+$`A^{(1)} = \sigma(Z^{(1)}) = \begin{bmatrix} \sigma(0.43) \\ \sigma(1.42) \end{bmatrix} \approx \begin{bmatrix} 0.606 \\ 0.805 \end{bmatrix}`$
 
 **Output Layer Computation:**
 
-$Z^{(2)} = W^{(2)} A^{(1)} + b^{(2)} = [0.3 \quad 0.7] \begin{bmatrix} 0.606 \\ 0.805 \end{bmatrix} + 0.5 \approx 1.244$
+$`Z^{(2)} = W^{(2)} A^{(1)} + b^{(2)} = [0.3 \quad 0.7] \begin{bmatrix} 0.606 \\ 0.805 \end{bmatrix} + 0.5 \approx 1.244`$
 
 Apply sigmoid activation:
 
-$\hat{Y} = \sigma(Z^{(2)}) = \sigma(1.244) \approx 0.776$
+$`\hat{Y} = \sigma(Z^{(2)}) = \sigma(1.244) \approx 0.776`$
 
 ### 🔴 **Compute Loss**
 
 Using binary cross-entropy loss:
 
-$J = -(Y\log(\hat{Y}) + (1 - Y)\log(1 - \hat{Y})) \approx -(1\log(0.776)) \approx 0.253$
+$`J = -(Y\log(\hat{Y}) + (1 - Y)\log(1 - \hat{Y})) \approx -(1\log(0.776)) \approx 0.253`$
 
 ### 🔵 **Backward Pass (Backpropagation)**
 
 **Output layer gradient:**
 
-$\frac{\partial J}{\partial Z^{(2)}} = \hat{Y} - Y = 0.776 - 1 = -0.224$
+$`\frac{\partial J}{\partial Z^{(2)}} = \hat{Y} - Y = 0.776 - 1 = -0.224`$
 
 Gradients for output weights and bias:
 
-$\frac{\partial J}{\partial W^{(2)}} = \frac{\partial J}{\partial Z^{(2)}} A^{(1)T} = -0.224 \times \begin{bmatrix} 0.606 & 0.805 \end{bmatrix} \approx \begin{bmatrix}-0.136 & -0.180\end{bmatrix}$
+$`\frac{\partial J}{\partial W^{(2)}} = \frac{\partial J}{\partial Z^{(2)}} A^{(1)T} = -0.224 \times \begin{bmatrix} 0.606 & 0.805 \end{bmatrix} \approx \begin{bmatrix}-0.136 & -0.180\end{bmatrix}`$
 
-$\frac{\partial J}{\partial b^{(2)}} = -0.224$
+$`\frac{\partial J}{\partial b^{(2)}} = -0.224`$
 
 **Hidden layer gradient:**
 
-$\frac{\partial J}{\partial Z^{(1)}} = (W^{(2)T} \frac{\partial J}{\partial Z^{(2)}}) \odot \sigma'(Z^{(1)})$
+$`\frac{\partial J}{\partial Z^{(1)}} = (W^{(2)T} \frac{\partial J}{\partial Z^{(2)}}) \odot \sigma'(Z^{(1)})`$
 
 Compute intermediate step:
 
-$W^{(2)T}\frac{\partial J}{\partial Z^{(2)}} = \begin{bmatrix}0.3 \\ 0.7\end{bmatrix} \times (-0.224) = \begin{bmatrix}-0.0672 \\ -0.1568\end{bmatrix}$
+$`W^{(2)T}\frac{\partial J}{\partial Z^{(2)}} = \begin{bmatrix}0.3 \\ 0.7\end{bmatrix} \times (-0.224) = \begin{bmatrix}-0.0672 \\ -0.1568\end{bmatrix}`$
 
 Compute derivative of sigmoid:
 
-$\sigma'(Z^{(1)}) = A^{(1)} \odot (1 - A^{(1)}) = \begin{bmatrix}0.606 \times 0.394 \\ 0.805 \times 0.195\end{bmatrix} \approx \begin{bmatrix}0.239 \\ 0.157\end{bmatrix}$
+$`\sigma'(Z^{(1)}) = A^{(1)} \odot (1 - A^{(1)}) = \begin{bmatrix}0.606 \times 0.394 \\ 0.805 \times 0.195\end{bmatrix} \approx \begin{bmatrix}0.239 \\ 0.157\end{bmatrix}`$
 
 Combine:
 
-$\frac{\partial J}{\partial Z^{(1)}} = \begin{bmatrix}-0.0672 \times 0.239 \\ -0.1568 \times 0.157\end{bmatrix} \approx \begin{bmatrix}-0.0161 \\ -0.0246\end{bmatrix}$
+$`\frac{\partial J}{\partial Z^{(1)}} = \begin{bmatrix}-0.0672 \times 0.239 \\ -0.1568 \times 0.157\end{bmatrix} \approx \begin{bmatrix}-0.0161 \\ -0.0246\end{bmatrix}`$
 
 Gradients for hidden layer weights and biases:
 
-$\frac{\partial J}{\partial W^{(1)}} = \frac{\partial J}{\partial Z^{(1)}} X^T = \begin{bmatrix}-0.0161 \\ -0.0246\end{bmatrix} \times [0.5 \quad 0.2] = \begin{bmatrix}-0.0080 & -0.0032 \\ -0.0123 & -0.0049\end{bmatrix}$
+$`\frac{\partial J}{\partial W^{(1)}} = \frac{\partial J}{\partial Z^{(1)}} X^T = \begin{bmatrix}-0.0161 \\ -0.0246\end{bmatrix} \times [0.5 \quad 0.2] = \begin{bmatrix}-0.0080 & -0.0032 \\ -0.0123 & -0.0049\end{bmatrix}`$
 
-$\frac{\partial J}{\partial b^{(1)}} = \frac{\partial J}{\partial Z^{(1)}} = \begin{bmatrix}-0.0161 \\ -0.0246\end{bmatrix}$
+$`\frac{\partial J}{\partial b^{(1)}} = \frac{\partial J}{\partial Z^{(1)}} = \begin{bmatrix}-0.0161 \\ -0.0246\end{bmatrix}`$
 
 ### ⚙️ **Update Parameters**
 
