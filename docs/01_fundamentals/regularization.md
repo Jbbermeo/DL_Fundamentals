@@ -10,7 +10,7 @@ Let’s break down the most impactful regularization methods — both classical 
 
 Also known as **Ridge Regression**, this technique penalizes large weights to prevent overfitting.
 
-$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{original}} + \frac{\lambda}{2} \sum_{i} w_i^2$
+$`\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{original}} + \frac{\lambda}{2} \sum_{i} w_i^2`$
 
 Here, $\lambda$ is the regularization strength, and the term $\sum w_i^2$ encourages weights to stay small.
 
@@ -22,7 +22,7 @@ Here, $\lambda$ is the regularization strength, and the term $\sum w_i^2$ encour
 
 This approach enforces **sparsity** in the weights by penalizing the absolute values instead.
 
-$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{original}} + \lambda \sum_{i} |w_i|$
+$`\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{original}} + \lambda \sum_{i} |w_i|`$
 
 Unlike L2, L1 can drive weights **exactly to zero**, leading to **feature selection**.
 
@@ -34,7 +34,7 @@ Unlike L2, L1 can drive weights **exactly to zero**, leading to **feature select
 
 A **blend of L1 and L2**, combining their strengths into one flexible formulation:
 
-$\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{original}} + \lambda_1 \sum_i |w_i| + \frac{\lambda_2}{2} \sum_i w_i^2$
+$`\mathcal{L}_{\text{total}} = \mathcal{L}_{\text{original}} + \lambda_1 \sum_i |w_i| + \frac{\lambda_2}{2} \sum_i w_i^2`$
 
 > 🧠 **Interpretation**: Elastic Net inherits L1's ability to perform feature selection and L2's ability to maintain stability, especially useful when dealing with **correlated features**.
 
@@ -110,11 +110,11 @@ If this constraint is violated during updates, weights are projected back into t
 
 Randomly drop entire layers during training:
 
-$\text{Block Output} = 
+$`\text{Block Output} = 
 \begin{cases}
 F(x) + x, & \text{with probability } p \\
 x, & \text{otherwise}
-\end{cases}$
+\end{cases}`$
 
 > 🧠 **What's happening**: Similar to Dropout, but applied at the **block level**. This introduces variability in depth during training, reducing overfitting and increasing robustness.
 
